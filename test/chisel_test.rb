@@ -25,4 +25,11 @@ class TestChisel < Minitest::Test
     output_chunks = Chisel.new(markdown).to_chunks(markdown)
     assert_equal expected_chunks, output_chunks
   end
+
+  def test_convert_chunks_to_html
+    chunks = ["## header chunk here", "### different header here", "this is just a paragraph"]
+    expected_chunks = ["<h2>header chunk here</h2>", "<h3>different header here</h3>", "<p>this is just a paragraph</p>"]
+    actual_chunks = Chisel.new('whatever').convert_chunks_to_html(chunks)
+    assert_equal expected_chunks, actual_chunks
+  end
 end

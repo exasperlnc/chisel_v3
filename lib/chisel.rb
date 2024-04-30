@@ -16,6 +16,33 @@ class Chisel
   def to_chunks(markdown)
     markdown.split(/\n\n+/)
   end
+
+  def convert_chunks_to_html(markdown_chunks)
+    markdown_chunks.map do |chunk|
+      if self.is_header?(chunk)
+        self.header_to_html(chunk)
+      else
+        self.paragraph_to_html(chunk)
+      end
+    end
+  end
+
+  def is_header?(chunk)
+    chunk[0] == '#'
+  end
+
+  def header_to_html(chunk)
+    first_char = chunk.index(' ') + 1
+    num_hashes = first_char - 1
+    text = chunk[first_char..-1]
+    "<h#{num_hashes}>#{text}</h#{num_hashes}>"
+  end
+
+  def paragraph_to_html(chunk)
+    "<p>#{chunk}</p>"
+  end
+
+
 end
 program_running = ($PROGRAM_NAME == __FILE__)
 if program_running
