@@ -4,7 +4,13 @@ class Chisel
   end
 
   def to_html
-    @markdown.reverse
+    # convert the markdown to chunks
+    chunks = @markdown.to_chunks
+
+    # convert markdown based on if chunk is header or paragraph
+    chunks.html_chunks.join('')
+    # join the chunks together
+
   end
 end
 program_running = ($PROGRAM_NAME == __FILE__)
