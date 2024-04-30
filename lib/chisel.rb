@@ -5,12 +5,16 @@ class Chisel
 
   def to_html
     # convert the markdown to chunks
-    chunks = @markdown.to_chunks
+    chunks = self.to_chunks(@markdown)
 
     # convert markdown based on if chunk is header or paragraph
-    chunks.html_chunks.join('')
+    self.convert_chunks_to_html(chunks).joins('')
     # join the chunks together
 
+  end
+
+  def to_chunks(markdown)
+    markdown.split(/\n\n+/)
   end
 end
 program_running = ($PROGRAM_NAME == __FILE__)
